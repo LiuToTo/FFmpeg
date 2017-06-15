@@ -22,6 +22,11 @@
 		AE336F081EF28B8E009A559F /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE336F011EF28B8E009A559F /* libavutil.a */; };
 		AE336F091EF28B8E009A559F /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE336F021EF28B8E009A559F /* libswresample.a */; };
 		AE336F0A1EF28B8E009A559F /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE336F031EF28B8E009A559F /* libswscale.a */; };
+		AEFDC4CD1EF2B1D20098D6FA /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFDC4CC1EF2B1D20098D6FA /* VideoToolbox.framework */; };
+		AEFDC4CF1EF2B1EF0098D6FA /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFDC4CE1EF2B1EF0098D6FA /* libiconv.tbd */; };
+		AEFDC4D11EF2B1FD0098D6FA /* libz.1.2.8.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFDC4D01EF2B1FD0098D6FA /* libz.1.2.8.tbd */; };
+		AEFDC4D31EF2B2040098D6FA /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFDC4D21EF2B2040098D6FA /* libbz2.tbd */; };
+		AEFDC4D61EF2B2BB0098D6FA /* H264EncodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AEFDC4D51EF2B2BB0098D6FA /* H264EncodeManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +176,12 @@
 		AE336F011EF28B8E009A559F /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavutil.a; sourceTree = "<group>"; };
 		AE336F021EF28B8E009A559F /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
 		AE336F031EF28B8E009A559F /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswscale.a; sourceTree = "<group>"; };
+		AEFDC4CC1EF2B1D20098D6FA /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		AEFDC4CE1EF2B1EF0098D6FA /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		AEFDC4D01EF2B1FD0098D6FA /* libz.1.2.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.8.tbd; path = usr/lib/libz.1.2.8.tbd; sourceTree = SDKROOT; };
+		AEFDC4D21EF2B2040098D6FA /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
+		AEFDC4D41EF2B2BB0098D6FA /* H264EncodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = H264EncodeManager.h; sourceTree = "<group>"; };
+		AEFDC4D51EF2B2BB0098D6FA /* H264EncodeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H264EncodeManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +189,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEFDC4D31EF2B2040098D6FA /* libbz2.tbd in Frameworks */,
+				AEFDC4D11EF2B1FD0098D6FA /* libz.1.2.8.tbd in Frameworks */,
+				AEFDC4CF1EF2B1EF0098D6FA /* libiconv.tbd in Frameworks */,
+				AEFDC4CD1EF2B1D20098D6FA /* VideoToolbox.framework in Frameworks */,
 				AE336F081EF28B8E009A559F /* libavutil.a in Frameworks */,
 				AE336F0A1EF28B8E009A559F /* libswscale.a in Frameworks */,
 				AE336F061EF28B8E009A559F /* libavfilter.a in Frameworks */,
@@ -212,6 +227,7 @@
 				AE336E6F1EF28B7B009A559F /* FFmpegTestTests */,
 				AE336E7A1EF28B7B009A559F /* FFmpegTestUITests */,
 				AE336E541EF28B7B009A559F /* Products */,
+				AEFDC4CB1EF2B1D20098D6FA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -238,6 +254,8 @@
 				AE336E641EF28B7B009A559F /* LaunchScreen.storyboard */,
 				AE336E671EF28B7B009A559F /* Info.plist */,
 				AE336E561EF28B7B009A559F /* Supporting Files */,
+				AEFDC4D41EF2B2BB0098D6FA /* H264EncodeManager.h */,
+				AEFDC4D51EF2B2BB0098D6FA /* H264EncodeManager.m */,
 			);
 			path = FFmpegTest;
 			sourceTree = "<group>";
@@ -460,6 +478,17 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
+		AEFDC4CB1EF2B1D20098D6FA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AEFDC4D21EF2B2040098D6FA /* libbz2.tbd */,
+				AEFDC4D01EF2B1FD0098D6FA /* libz.1.2.8.tbd */,
+				AEFDC4CE1EF2B1EF0098D6FA /* libiconv.tbd */,
+				AEFDC4CC1EF2B1D20098D6FA /* VideoToolbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -599,6 +628,7 @@
 				AE336E5E1EF28B7B009A559F /* ViewController.m in Sources */,
 				AE336E5B1EF28B7B009A559F /* AppDelegate.m in Sources */,
 				AE336E581EF28B7B009A559F /* main.m in Sources */,
+				AEFDC4D61EF2B2BB0098D6FA /* H264EncodeManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

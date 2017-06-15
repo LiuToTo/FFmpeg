@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FFmpegTest/ViewController.m"
-            timestampString = "519217407.393964"
+            timestampString = "519225741.944806"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "-touchesBegan:withEvent:"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "-captureOutput:didOutputSampleBuffer:fromConnection:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FFmpegTest/ViewController.m"
-            timestampString = "519217837.63839"
+            timestampString = "519225757.3097"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "-captureOutput:didOutputSampleBuffer:fromConnection:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,12 +42,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FFmpegTest/ViewController.m"
-            timestampString = "519218090.061085"
+            timestampString = "519225805.988436"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "-captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error:"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "-captureOutput:didOutputSampleBuffer:fromConnection:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ViewController captureOutput:didOutputSampleBuffer:fromConnection:]"
+                  moduleName = "FFmpegTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vip-liuxu/demospace/FFmpegTest/FFmpegTest/ViewController.m"
+                  timestampString = "519225805.994763"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "304">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__69-[ViewController captureOutput:didOutputSampleBuffer:fromConnection:]_block_invoke"
+                  moduleName = "FFmpegTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vip-liuxu/demospace/FFmpegTest/FFmpegTest/ViewController.m"
+                  timestampString = "519225805.997847"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "115"
+                  endingLineNumber = "115"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FFmpegTest/H264EncodeManager.m"
+            timestampString = "519225829.840316"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "-encodeWithData:andConfig:andReslutBlock:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

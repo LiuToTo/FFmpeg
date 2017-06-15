@@ -8,11 +8,22 @@
 
 #import "ViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "avcodec.h"
+#import "H264EncodeManager.h"
+#import <libavcodec/avcodec.h>
+#import <libavformat/avformat.h>
+#import <libavutil/opt.h>
+#import <libavutil/imgutils.h>
+#import <libswscale/swscale.h>
 
-@interface ViewController () <AVCaptureFileOutputRecordingDelegate>
+@interface ViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
+{
+    AVCodec * _H264Codec;
+    AVCodecContext *_codecContext;
+    H264EncodeManager *_encoder;
+    AVCaptureSession *_session;
+}
 
-@property (nonatomic, strong) AVCaptureMovieFileOutput *output;
+@property (nonatomic, strong) AVCaptureVideoDataOutput *output;
 
 @end
 
@@ -20,7 +31,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     //1.创建视频设备(摄像头前，后)
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     //2.初始化一个摄像头输入设备(first是后置摄像头，last是前置摄像头)
@@ -32,8 +42,20 @@
     AVCaptureDeviceInput *inputAudio = [AVCaptureDeviceInput deviceInputWithDevice:deviceAudio error:NULL];
     
     //5.初始化一个movie的文件输出
-    AVCaptureMovieFileOutput *output = [[AVCaptureMovieFileOutput alloc] init];
-    self.output = output; //保存output，方便下面操作
+    AVCaptureVideoDataOutput *avCaptureVideoDataOutput = [[AVCaptureVideoDataOutput alloc] init];
+    NSDictionary *settings = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              [NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA], kCVPixelBufferPixelFormatTypeKey,
+                              nil];
+    
+    
+    
+    avCaptureVideoDataOutput.videoSettings = settings;
+    avCaptureVideoDataOutput.alwaysDiscardsLateVideoFrames = YES;
+    
+    /*We create a serial queue to handle the processing of our frames*/
+    dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
+    [avCaptureVideoDataOutput setSampleBufferDelegate:self queue:queue];
+    _output = avCaptureVideoDataOutput;
     
     //6.初始化一个会话
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
@@ -45,8 +67,8 @@
     if ([session canAddInput:inputAudio]) {
         [session addInput:inputAudio];
     }
-    if ([session canAddOutput:output]) {
-        [session addOutput:output];
+    if ([session canAddOutput:_output]) {
+        [session addOutput:avCaptureVideoDataOutput];
     }
     
     //8.创建一个预览涂层
@@ -55,35 +77,49 @@
     preLayer.frame = self.view.bounds;
     //添加到view上
     [self.view.layer addSublayer:preLayer];
+    
+    _encoder = [H264EncodeManager new];
+    _session = session;
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    //判断是否在录制,如果在录制，就停止，并设置按钮title
-    if ([self.output isRecording]) {
-        [self.output stopRecording];
-        return;
-    }
-    
-    //设置按钮的title
-    
-    //10.开始录制视频
-    //设置录制视频保存的路径
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVidio.mov"];
-    
-    //转为视频保存的url
-    NSURL *url = [NSURL fileURLWithPath:path];
-    
-    //开始录制,并设置控制器为录制的代理
-    [self.output startRecordingToOutputFileURL:url recordingDelegate:self];
-    
+    [_session startRunning];
 }
 
-#pragma  mark - AVCaptureFileOutputRecordingDelegate
-//录制完成代理
-- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
+#pragma mark AVCaptureVideoDataOutputSampleBufferDelegate
+
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
-    NSLog(@"完成录制,可以自己做进一步的处理");
+    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    
+    // Lock the base address of the pixel buffer
+    CVPixelBufferLockBaseAddress(imageBuffer, 0);
+
+    
+    if(CVPixelBufferLockBaseAddress(imageBuffer, 0) == kCVReturnSuccess)
+    {
+        CMTime pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
+        CMTime duration = CMSampleBufferGetDuration(sampleBuffer);
+        // Get the number of bytes per row for the plane pixel buffer
+        
+        size_t width = CVPixelBufferGetWidth(imageBuffer);
+        size_t height = CVPixelBufferGetHeight(imageBuffer);
+        YUVConfig conf = {0};
+        conf.width = width;
+        conf.height = height;
+        conf.pts = pts.value;
+        conf.duration = duration.value;
+          [_encoder encodeWithData:imageBuffer andConfig:conf andReslutBlock:^(NSData *H264buf) {
+              NSLog(@"%@",H264buf);
+          }];
+        
+    }
+    
+    CVPixelBufferUnlockBaseAddress(imageBuffer,0);
+    
+  
 }
 
 
